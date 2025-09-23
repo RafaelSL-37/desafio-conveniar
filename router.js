@@ -1,12 +1,12 @@
-import FundacoesController from './source/fundacoes/controller.js';
+import FoundationsController from './source/foundations/controller.js';
 
 export class Router {
     constructor() {
-        fundacoesController = FundacoesController()
+        foundationsController = FoundationsController()
     }
 
     route(url, method) {
-        if (url === '/service') return fundacoesController.handleRequest(method);
+        if (url.pathname === '/foundations') return foundationsController.handleRequest(method);
     }
 }
 
