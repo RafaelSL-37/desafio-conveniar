@@ -1,6 +1,3 @@
-
-
-
 export class FundacoesService {
   constructor() {
     this.connection = connection; //TODO: POSTGRESQL CONNECTION

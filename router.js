@@ -5,13 +5,8 @@ export class Router {
         fundacoesController = FundacoesController()
     }
 
-    route(res, url, method) {
-        if (url === '/service') {            
-            page = fundacoesController.handleRequest(method);
-
-            res.write(page);
-            res.end();
-        }
+    route(url, method) {
+        if (url === '/service') return fundacoesController.handleRequest(method);
     }
 }
 

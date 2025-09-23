@@ -1,4 +1,5 @@
 const http = require('http');
+import Router from './router';
 
 const server = http.createServer((req, res) => {
     res.statusCode = 200;
@@ -8,11 +9,13 @@ const server = http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': 'text/html' });
 
     const url = req.url;
-    const method = true; //TODO: GET METHOD
-    const connection = 'XXXXXXXXXXXXXXXXXXXXX'; //TODO: CONNECT TO POSTGRES
+    const method = 'XXXXXXXXXXXXXXXXXXXX'; //TODO: GET METHOD
 
     router = Router(connection);
-    route(res, url, method)
+    page = route(res, url, method)
+
+    res.write(page);
+    res.end();
 });
 
 server.listen(port, () => {
