@@ -6,25 +6,24 @@ export class FoundationsController {
     }
 
     async handleRequest(method, params, body, path) {
-        //TODO: HANDLE BY URL AND METHOD INSTEAD OF JUST METHOD
-        if (method === 'GET' && (path === '' || path === '/')) {
-            const foundations = await this.foundationsService.getFoundations();
+        if (method === 'GET') {
+            if (params.cnpj) {
+                const foundations = await this.foundationsService.getFoundations(params.cnpj);
 
-            if (!foundations) {
-                return { code: 404, content: 'Foundation with given CNPJ not found.' };
+                if (!foundations) {
+                    return { code: 404, content: 'Foundation with given CNPJ not found.' };
+                }
+
+                return { code: 200, content: foundations };
+            } else {
+                const foundations = await this.foundationsService.getFoundations();
+    
+                if (!foundations) {
+                    return { code: 404, content: 'No foundation was found.' };
+                }
+    
+                return { code: 200, content: foundations };
             }
-
-            return { code: 200, content: foundations };
-        }
-
-        if (method === 'GET' && path === '/SOMETHING') { //TODO: DISCOVER HOW TO COMPARE WITH '/___', ANY AMOUNT OF NUMBERS
-            const foundations = await this.foundationsService.getFoundations(params.cnpj);
-
-            if (!foundations) {
-                return { code: 404, content: 'Foundation with given CNPJ not found.' };
-            }
-
-            return { code: 200, content: foundations };
         }
 
         if (method === 'POST' && path === '') {
@@ -33,7 +32,7 @@ export class FoundationsController {
             if (createdFoundation) {
                 return { code: 201, content: createdFoundation };
             } else {
-                return { code: 400, content: 'Already have foundation with given CNPJ' };
+                return { code: 400, content: 'CNPJ already in database.' };
             }
         }
         
@@ -47,7 +46,9 @@ export class FoundationsController {
             }
         }
 
-        if (method === 'DELETE' && path === '/SOMETHING') { //TODO: DISCOVER HOW TO COMPARE WITH '/___', ANY AMOUNT OF NUMBERS
+        if (method === 'DELETE' && path === '/SOMETHING') {
+            if (!params.id) return { code: 400, content: 'No CNPJ was given for deletion.' };
+
             const deletedFoundation = this.foundationsService.deleteFoundations(params.id);
 
             if (deletedFoundation) {
