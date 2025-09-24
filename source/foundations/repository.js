@@ -23,14 +23,22 @@ export class FoundationsRepository {
         this.pool = new Pool(poolConfig);
     }
 
-    async findByCnpj(cnpj) {
+    async find() {
         query = 'SELECT * FROM foundations';
 
         const client = await this.pool.connect()
+        const { rows } = await client.query(query);
+        client.release() //TODO: CHECK IF THIS WORKS
 
-        const { rows } = cnpj 
-            ? await client.query(query)
-            : await client.query(query + ' WHERE cnpj = $1', [cnpj]);
+        return rows || null;
+    }
+
+    async findByCnpj(cnpj) {
+        query = 'SELECT * FROM foundations WHERE cnpj = $1';
+
+        const client = await this.pool.connect()
+
+        const { rows } = await client.query(query, [cnpj]);
         client.release() //TODO: CHECK IF THIS WORKS
 
         return rows || null;
@@ -41,8 +49,6 @@ export class FoundationsRepository {
 
         const { rows } = await this.pool.query(query, [name, cnpj, email, phone, supportedInstitution]);
 
-        await pool.end()
-
         return rows[0];
     }
 
@@ -51,8 +57,6 @@ export class FoundationsRepository {
 
         const { rows } = await this.pool.query(query, [name, email, phone, supportedInstitution, cnpj]);
 
-        await pool.end()
-
         return rows[0];
     }
 
@@ -60,8 +64,6 @@ export class FoundationsRepository {
         const query = `DELETE FROM foundations WHERE cnpj = $1 RETURNING cnpj`;
 
         const { rows } = await this.pool.query(query, [cnpj]);
-
-        await pool.end()
 
         return rows[0];
     }

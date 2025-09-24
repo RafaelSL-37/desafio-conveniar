@@ -1,19 +1,45 @@
-import { FoundationsModel } from "./model/foundations";
+import { FoundationsRepository } from "./repository";
 
 export class FoundationsService {
-  constructor() {}
+  constructor() {
+    this.foudationsRepository = FoundationsRepository();
+  }
 
-  //Deve também ser possível pesquisar os registros existentes através do número do CNPJ
-    //Caso a pesquisa encontre resultados, os dados da fundação deverão ser exibidos.
-    //Caso o registro não seja encontrado, exibir a mensagem “Fundação não encontrada”
-  async getFoundations() {}
+  async getFoundations(cnpj) {
+    const foundations = cnpj 
+      ? await this.foudationsRepository.findByCnpj(cnpj)
+      : await this.foudationsRepository.find();
 
-  //Uma mensagem deverá ser exibida caso o cadastro seja efetuado com sucesso
-  async createFoundations() {}
+    return foundations;
+  }
 
-  //Uma mensagem deverá ser exibida caso o cadastro seja atualizado com sucesso
-  async updateFoundations() {}
+  async createFoundations(body) {
+    const existingFoundation = await this.foudationsRepository.findByCnpj(cnpj);
 
-  //Uma mensagem deverá ser exibida caso o cadastro seja apagado com sucesso
-  async deleteFoundations() {}
+    if (!existingFoundation) {
+      return this.FoundationsRepository.create(body);
+    } else {
+      return null;
+    }
+  }
+
+  async updateFoundations(body) {
+    const existingFoundation = await this.foudationsRepository.findByCnpj(cnpj);
+
+    if (existingFoundation) {
+      return this.FoundationsRepository.update(body);
+    } else {
+      return null;
+    }
+  }
+
+  async deleteFoundations(cnpj) {
+    const existingFoundation = await this.foudationsRepository.findByCnpj(cnpj);
+
+    if (existingFoundation) {
+      return this.FoundationsRepository.delete(body);
+    } else {
+      return null;
+    }
+  }
 }

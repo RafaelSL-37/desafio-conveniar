@@ -1,4 +1,4 @@
-import Router from './router';
+import { Router } from './router';
 
 const http = require('http');
 const url = require('url');

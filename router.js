@@ -1,4 +1,4 @@
-import FoundationsController from './source/foundations/controller.js';
+import { FoundationsController } from './source/foundations/controller.js';
 
 export class Router {
     constructor() {

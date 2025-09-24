@@ -1,46 +1,54 @@
-import FoundationsRepository from './repository'
+import { FoundationsService } from "./service";
 
 export class FoundationsController {
     constructor() {
-        foundationsRepository = FoundationsRepository()
+        this.foundationsService = FoundationsService()
     }
 
     async handleRequest(method, params, body) {
         if (method === 'GET') {
-            const foundations = cnpj
-                ? foundationsRepository.getFoundations(cnpj)
-                : foundationsRepository.getFoundations();
+            const foundations = params.cnpj
+                ? await this.foundationsService.getFoundations(params.cnpj)
+                : await this.foundationsService.getFoundations();
 
             if (!foundations) {
-                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+                return { code: 404, content: 'Foundation with given CNPJ not found.' };
             }
 
-            return {code: 200, content: foundations};
+            return { code: 200, content: foundations };
         }
 
         if (method === 'POST') {
-            if (foundationsRepository.getFoundations(body.cnpj)) {
-                return {code: 400, content: 'Already have foundation with given CNPJ'};
-            }
+            const createdFoundation = await this.foundationsService.createFoundations(body)
 
-            return {code: 201, content: foundationsRepository.createFoundations(body)};
+            if (createdFoundation) {
+                return { code: 201, content: createdFoundation };
+            } else {
+                return { code: 400, content: 'Already have foundation with given CNPJ' };
+            }
         }
         
         if (method === 'PUT') {
-            if (!foundationsRepository.getFoundations(body.cnpj)) {
-                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+            const updatedFoundation = await this.foundationsService.updateFoundations(body)
+
+            if (updatedFoundation) {
+                return { code: 200, content: updatedFoundation };
+            } else {
+                return { code: 404, content: 'Foundation with given CNPJ not found.' };
             }
 
-            return {code: 200, content: foundationsRepository.updateFoundations(body)};
+            
         }
 
         if (method === 'DELETE') {
-            const foundation = await foundationsRepository.getFoundations(header.cnpj);
-            if (!foundation) {
+            const deletedFoundation = this.foundationsService.deleteFoundations(params.cnpj);
+            
+            if (deletedFoundation) {
+                return { code: 200, content:  deletedFoundation};
+            } else {
                 return {code: 404, content: 'Foundation with given CNPJ not found.'};
             }
 
-            return {code: 200, content: foundationsRepository.deleteFoundations(header.cnpj)};
         }
 
         return {code: 404, content: 'Resource not found.'}
