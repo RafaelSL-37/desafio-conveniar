@@ -1,9 +1,6 @@
-import { Router } from './router';
-
-const http = require('http');
-const url = require('url');
-
-const port = process.env.PORT || 3000;
+import { Router } from './router.js';
+import http from 'http';
+import url from 'url';
 
 function getJsonBody(req) {
   return new Promise((resolve, reject) => {
@@ -15,26 +12,24 @@ function getJsonBody(req) {
 }
 
 const server = http.createServer(async (req, res) => {
-    res.statusCode = 200;
-
     const url_test = req.url;
+
     const parsedUrl = url.parse(req.url, true);
     const method = req.method;
     const body = await getJsonBody(req);
 
-    const router = Router(connection);
+    const router = new Router();
     const result = await router.route(parsedUrl, method, body);
 
-    res.writeHead(result.code, {'Content-Type': 'application/json'})
+    res.writeHead(result.code)
     res.end(JSON.stringify(result.content, null, 2));
 });
 
 server.listen(port, () => {
-    console.log(`Server running at http://${process.env.HOST}:${process.env.PORT}/`);
+    console.log(`Server running at http://${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/`);
 });
 
 //REQUISITES
-//TODO: DATABASE WITH DOCKER
 //TODO: DATABASE CONNECTION
 //TODO: <FRONT> CREATE FORM
 //TODO: <FRONT> LIST
@@ -44,8 +39,10 @@ server.listen(port, () => {
 
 //IMPROVEMENTS
 //TODO: README (PT/EN)
+//TODO: CHANGE DELETE TO SOFT DELETE
 //TODO: FIELD VALIDATIONS
-//TODO: SWAGGER- LIKE
+//TODO: REFACTOR TO USE ORM
+//TODO: SWAGGER-LIKE DOCUMENTATION
 //TODO: JWT
 
 //AT THE END

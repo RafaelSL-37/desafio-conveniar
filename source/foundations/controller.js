@@ -1,4 +1,4 @@
-import { FoundationsService } from "./service";
+import { FoundationsService } from "./service.js";
 
 export class FoundationsController {
     constructor() {
@@ -6,6 +6,7 @@ export class FoundationsController {
     }
 
     async handleRequest(method, params, body) {
+        //TODO: HANDLE BY URL AND METHOD INSTEAD OF JUST METHOD
         if (method === 'GET') {
             const foundations = params.cnpj
                 ? await this.foundationsService.getFoundations(params.cnpj)
@@ -36,12 +37,10 @@ export class FoundationsController {
             } else {
                 return { code: 404, content: 'Foundation with given CNPJ not found.' };
             }
-
-            
         }
 
         if (method === 'DELETE') {
-            const deletedFoundation = this.foundationsService.deleteFoundations(params.cnpj);
+            const deletedFoundation = this.foundationsService.deleteFoundations(params.id);
 
             if (deletedFoundation) {
                 return { code: 200, content:  deletedFoundation};

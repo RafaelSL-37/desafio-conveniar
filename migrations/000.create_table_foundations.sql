@@ -1,0 +1,11 @@
+CREATE TABLE foundations (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  cnpj VARCHAR(18) NOT NULL UNIQUE, --COULD BE PRIMARY INDEX, BUT IT IS SENSIBLE DATA
+  email TEXT,
+  phone TEXT,
+  institution TEXT,
+  created_at TIMESTAMP DEFAULT now(),
+  updated_at TIMESTAMP DEFAULT now(),
+  deleted_at TIMESTAMP DEFAULT NULL
+);

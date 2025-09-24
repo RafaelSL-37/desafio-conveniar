@@ -20,8 +20,8 @@ export class Router {
 
         const keyValuePairs = splitPath[1].split('&');
 
-        return params.array.forEach(keyValuePair => {
-            const { key, value } = keyValuePair.split('=');
+        return keyValuePairs.array.forEach(keyValuePair => {
+            const [ key, value ] = keyValuePair.split('=');
             params[key] = value;
         });
     }
