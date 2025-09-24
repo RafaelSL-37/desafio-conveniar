@@ -2,28 +2,18 @@ import { FoundationsController } from './source/foundations/controller.js';
 
 export class Router {
     constructor() {
-        foundationsController = FoundationsController()
+        this.foundationsController = new FoundationsController();
     }
 
-    async route(url, method, body) {
-        if (url.pathname.startsWith('/foundations')) {
-            const params = getParams(url.pathname);
-            return foundationsController.handleRequest(method, params, body);
+    async route(urlData, method, body) {
+        if (urlData.pathname.startsWith('/foundations')) {
+            return this.foundationsController.handleRequest(
+                method, 
+                urlData.query, 
+                body, 
+                urlData.pathname.replace('/foundations', "")
+            );
         }
-    }
-
-    getParams(path){
-        const splitPath = path.split('?');
-        const params = {};
-
-        if (splitPath.length == 0) return params;
-
-        const keyValuePairs = splitPath[1].split('&');
-
-        return keyValuePairs.array.forEach(keyValuePair => {
-            const [ key, value ] = keyValuePair.split('=');
-            params[key] = value;
-        });
     }
 }
 

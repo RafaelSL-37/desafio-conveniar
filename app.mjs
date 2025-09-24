@@ -2,6 +2,8 @@ import { Router } from './router.js';
 import http from 'http';
 import url from 'url';
 
+const port = process.env.APP_PORT || 3000;
+
 function getJsonBody(req) {
   return new Promise((resolve, reject) => {
     let data = '';
@@ -12,21 +14,19 @@ function getJsonBody(req) {
 }
 
 const server = http.createServer(async (req, res) => {
-    const url_test = req.url;
-
-    const parsedUrl = url.parse(req.url, true);
+    const urlData = url.parse(req.url, true);
     const method = req.method;
     const body = await getJsonBody(req);
 
     const router = new Router();
-    const result = await router.route(parsedUrl, method, body);
+    const result = await router.route(urlData, method, body);
 
     res.writeHead(result.code)
     res.end(JSON.stringify(result.content, null, 2));
 });
 
 server.listen(port, () => {
-    console.log(`Server running at http://${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/`);
+    console.log(`Server running at http://localhost:${port}/`);
 });
 
 //REQUISITES

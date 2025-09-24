@@ -2,15 +2,13 @@ import { FoundationsService } from "./service.js";
 
 export class FoundationsController {
     constructor() {
-        this.foundationsService = FoundationsService()
+        this.foundationsService = new FoundationsService()
     }
 
-    async handleRequest(method, params, body) {
+    async handleRequest(method, params, body, path) {
         //TODO: HANDLE BY URL AND METHOD INSTEAD OF JUST METHOD
-        if (method === 'GET') {
-            const foundations = params.cnpj
-                ? await this.foundationsService.getFoundations(params.cnpj)
-                : await this.foundationsService.getFoundations();
+        if (method === 'GET' && (path === '' || path === '/')) {
+            const foundations = await this.foundationsService.getFoundations();
 
             if (!foundations) {
                 return { code: 404, content: 'Foundation with given CNPJ not found.' };
@@ -19,7 +17,17 @@ export class FoundationsController {
             return { code: 200, content: foundations };
         }
 
-        if (method === 'POST') {
+        if (method === 'GET' && path === '/SOMETHING') { //TODO: DISCOVER HOW TO COMPARE WITH '/___', ANY AMOUNT OF NUMBERS
+            const foundations = await this.foundationsService.getFoundations(params.cnpj);
+
+            if (!foundations) {
+                return { code: 404, content: 'Foundation with given CNPJ not found.' };
+            }
+
+            return { code: 200, content: foundations };
+        }
+
+        if (method === 'POST' && path === '') {
             const createdFoundation = await this.foundationsService.createFoundations(body)
 
             if (createdFoundation) {
@@ -29,7 +37,7 @@ export class FoundationsController {
             }
         }
         
-        if (method === 'PUT') {
+        if (method === 'PUT' && path === '') {
             const updatedFoundation = await this.foundationsService.updateFoundations(body)
 
             if (updatedFoundation) {
@@ -39,7 +47,7 @@ export class FoundationsController {
             }
         }
 
-        if (method === 'DELETE') {
+        if (method === 'DELETE' && path === '/SOMETHING') { //TODO: DISCOVER HOW TO COMPARE WITH '/___', ANY AMOUNT OF NUMBERS
             const deletedFoundation = this.foundationsService.deleteFoundations(params.id);
 
             if (deletedFoundation) {

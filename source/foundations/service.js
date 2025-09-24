@@ -2,7 +2,7 @@ import { FoundationsRepository } from "./repository.js";
 
 export class FoundationsService {
   constructor() {
-    this.foudationsRepository = FoundationsRepository();
+    this.foudationsRepository = new FoundationsRepository();
   }
 
   async getFoundations(cnpj=null) {

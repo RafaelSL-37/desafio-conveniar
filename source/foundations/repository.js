@@ -33,7 +33,7 @@ export class FoundationsRepository {
 
 
     async find() {
-        query = 'SELECT * FROM foundations';
+        const query = 'SELECT * FROM foundations';
 
         const client = await this.pool.connect()
         const { rows } = await client.query(query);
@@ -43,7 +43,7 @@ export class FoundationsRepository {
     }
 
     async findByField(fieldName, fieldValue) {
-        query = 'SELECT * FROM foundations WHERE $1 = $2';
+        const query = 'SELECT * FROM foundations WHERE $1 = $2';
 
         const { rows } = await client.query(query, [fieldName, fieldValue]);
 
