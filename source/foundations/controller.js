@@ -42,16 +42,16 @@ export class FoundationsController {
 
         if (method === 'DELETE') {
             const deletedFoundation = this.foundationsService.deleteFoundations(params.cnpj);
-            
+
             if (deletedFoundation) {
                 return { code: 200, content:  deletedFoundation};
             } else {
-                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+                return { code: 404, content: 'Foundation with given CNPJ not found.' };
             }
 
         }
 
-        return {code: 404, content: 'Resource not found.'}
+        return { code: 404, content: 'Resource not found.' }
     }
 }
 
