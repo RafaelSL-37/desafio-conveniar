@@ -18,4 +18,4 @@ export class FoundationsModel {
         this.updatedAt = entity.updatedAt;
         this.deletedAt = entity.deletedAt;
     }
-}
+} //TODO: IS THIS NECESSARY?

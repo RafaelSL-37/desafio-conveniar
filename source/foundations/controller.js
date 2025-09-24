@@ -1,25 +1,49 @@
-import FoundationsService from './source/foundations/service.js';
+import FoundationsRepository from './repository'
 
 export class FoundationsController {
     constructor() {
-        foundationsService = FoundationsService()
+        foundationsRepository = FoundationsRepository()
     }
 
-    handleRequest(method) {
-        if (method === 'GET') return foundationsService.getFoundations();
+    async handleRequest(method, params, body) {
+        if (method === 'GET') {
+            const foundations = cnpj
+                ? foundationsRepository.getFoundations(cnpj)
+                : foundationsRepository.getFoundations();
+
+            if (!foundations) {
+                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+            }
+
+            return {code: 200, content: foundations};
+        }
 
         if (method === 'POST') {
-            //TODO: CHECK IF EXISTS. 
-                // IF IT DOES, UPDATE
-                // IF IT DOESNT, CREATE
-            return foundationsService.createFoundations(); 
+            if (foundationsRepository.getFoundations(body.cnpj)) {
+                return {code: 400, content: 'Already have foundation with given CNPJ'};
+            }
+
+            return {code: 201, content: foundationsRepository.createFoundations(body)};
         }
         
-        if (method === 'PUT') return foundationsService.updateFoundations();
-        
-        if (method === 'DELETE') return foundationsService.deleteFoundations();
+        if (method === 'PUT') {
+            if (!foundationsRepository.getFoundations(body.cnpj)) {
+                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+            }
 
-        return 'Não foi encontrada rota disponível para a requisição feita.'
+            return {code: 200, content: foundationsRepository.updateFoundations(body)};
+        }
+
+        if (method === 'DELETE') {
+            const foundation = await foundationsRepository.getFoundations(header.cnpj);
+            if (!foundation) {
+                return {code: 404, content: 'Foundation with given CNPJ not found.'};
+            }
+
+            return {code: 200, content: foundationsRepository.deleteFoundations(header.cnpj)};
+        }
+
+        return {code: 404, content: 'Resource not found.'}
     }
 }
 

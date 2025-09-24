@@ -2,23 +2,34 @@ import Router from './router';
 
 const http = require('http');
 const url = require('url');
-const PORT = process.env.PORT || 3000;
 
-const server = http.createServer((req, res) => {
+const port = process.env.PORT || 3000;
+
+function getJsonBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => data += chunk);
+    req.on('end', () => resolve(data ? JSON.parse(data) : {}));
+    req.on('error', reject);
+  });
+}
+
+const server = http.createServer(async (req, res) => {
     res.statusCode = 200;
 
     const url_test = req.url;
     const parsedUrl = url.parse(req.url, true);
     const method = req.method;
+    const body = await getJsonBody(req);
 
     const router = Router(connection);
-    const result = router.route(res, parsedUrl, method);
+    const result = await router.route(parsedUrl, method, body);
 
     res.writeHead(result.code, {'Content-Type': 'application/json'})
     res.end(JSON.stringify(result.content, null, 2));
 });
 
-server.listen(PORT, () => {
+server.listen(port, () => {
     console.log(`Server running at http://${process.env.HOST}:${process.env.PORT}/`);
 });
 
