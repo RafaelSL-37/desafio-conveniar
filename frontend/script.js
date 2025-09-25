@@ -9,6 +9,10 @@ function openTab(nome) {
   clearMessages();
 }
 
+function removeSpecialCaracters(input) {
+    return input.replace(/\D/g, '');
+}
+
 function setMessage(componentId, message) {
     const component = document.querySelector(`#${componentId}`);
     component.innerHTML = message;
@@ -20,7 +24,7 @@ function clearMessages() {
     setMessage('searchMessageHandler', '');
 }
 
-function getSingleFoundationTable(foundation) {
+function buildSingleFoundationTable(foundation) {
     return `<table>
         <thead>
             <tr>
@@ -41,7 +45,7 @@ function getSingleFoundationTable(foundation) {
                 <td>${foundation.phone}</td>
                 <td>${foundation.email}</td>
                 <td>${foundation.supported_institution}</td>
-                <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
+                <td><button class="btn" onclick="deleteSearchedFoundationById(${foundation.id})">Excluir</button></td>
             </tr>
         </tbody>
     </table>`; //TODO: MASK FOR PHONE AND CNPJ
@@ -51,19 +55,21 @@ function fillTable(foundations) {
   const tableBody = document.querySelector("#entityTable tbody");
   tableBody.innerHTML = "";
 
-  foundations.forEach(foundation => {
-    const tr = document.createElement("tr"); //TODO: MASK FOR PHONE AND CNPJ
-    tr.innerHTML = `
-      <td>${foundation.id}</td>
-      <td>${foundation.name}</td>
-      <td>${foundation.cnpj}</td>
-      <td>${foundation.phone}</td> 
-      <td>${foundation.email}</td>
-      <td>${foundation.supported_institution}</td>
-      <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
-    `;
-    tableBody.appendChild(tr);
-  });
+  if (foundations) {
+      foundations.forEach(foundation => {
+        const tr = document.createElement("tr"); //TODO: MASK FOR PHONE AND CNPJ
+        tr.innerHTML = `
+          <td>${foundation.id}</td>
+          <td>${foundation.name}</td>
+          <td>${foundation.cnpj}</td>
+          <td>${foundation.phone}</td> 
+          <td>${foundation.email}</td>
+          <td>${foundation.supported_institution}</td>
+          <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
+        `;
+        tableBody.appendChild(tr);
+      });
+  }
 }
 
 function updateCnpjDropdown(foundations) {
@@ -79,11 +85,39 @@ function updateCnpjDropdown(foundations) {
     });
 }
 
+function phoneMask(event) {
+    let input = event.target;
+    let value = input.value.replace(/\D/g, '');
+
+    if (value.length > 10) {
+        value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+    } else {
+        value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+    }
+
+    input.value = value;
+}
+
+function cnpjMask(event) {
+    let input = event.target;
+    let value = input.value.replace(/\D/g, '');
+
+    value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+    value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+    value = value.replace(/(\d{4})(\d)/, '$1-$2');
+
+    input.value = value.slice(0, 18);
+}
+
 
 document.getElementById("createForm").addEventListener("submit", async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const body = Object.fromEntries(formData);
+    
+    body.phone = removeSpecialCaracters(body.phone);
+    body.cnpj = removeSpecialCaracters(body.cnpj);
 
     const response = await fetch(`${API_URL}/foundations`, {
         method: "POST",
@@ -108,8 +142,8 @@ document.getElementById("updateForm").addEventListener("submit", async e => {
 
     body.id = body.cnpj.split(' - ')[1]
     body.cnpj = body.cnpj.split(' - ')[0]
-
-    console.log(body)
+    body.phone = removeSpecialCaracters(body.phone);
+    body.cnpj = removeSpecialCaracters(body.cnpj);
 
     const response = await fetch(`${API_URL}/foundations`, {
         method: "PUT",
@@ -136,7 +170,7 @@ async function fetchByCnpj() {
     if (!response.ok || !foundation || foundation.length === 0) {
         setMessage('searchMessageHandler', "Não foi encontrada fundação para o CNPJ.");
     } else {
-        setMessage('searchMessageHandler', getSingleFoundationTable(foundation[0]));
+        setMessage('searchMessageHandler', buildSingleFoundationTable(foundation[0]));
     }
 }
 
@@ -152,6 +186,10 @@ async function deleteFoundationById(id) {
   fetchFoundations();
 }
 
+async function deleteSearchedFoundationById(id) {
+    await deleteFoundationById(id);
+    setMessage('searchMessageHandler', 'Fundação apagada com sucesso!')
+}
 
 // Initialize table
 fetchFoundations();

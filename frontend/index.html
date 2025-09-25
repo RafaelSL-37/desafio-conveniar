@@ -38,8 +38,8 @@
                 <h2>Criar nova fundação</h2>
                 <form id="createForm">
                     <input type="text" name="name" placeholder="Nome" required>
-                    <input type="text" name="cnpj" placeholder="CNPJ" required><!-- TODO: MASK -->
-                    <input type="text" name="phone" placeholder="Telefone" required><!-- TODO: MASK -->
+                    <input type="text" name="cnpj" placeholder="CNPJ" oninput="cnpjMask(event)" maxlength="18" required>
+                    <input type="text" name="phone" placeholder="Telefone"  oninput="phoneMask(event)" maxlength="15" required>
                     <input type="email" name="email" placeholder="Email" required>
                     <input type="text" name="supportedInstitution" placeholder="Instituição de Apoio" required>
                     <button type="submit" class="btn">Criar</button>
@@ -54,8 +54,8 @@
                         <option value="">Selecione um CNPJ</option>
                     </select>
                     <input type="text" name="name" placeholder="Nome">
-                    <input type="text" name="phone" placeholder="Telefone"><!-- TODO: MASK -->
-                    <input type="email" name="email" placeholder="Email"><!-- TODO: MASK -->
+                    <input type="text" name="phone" placeholder="Telefone" oninput="phoneMask(event)" maxlength="15">
+                    <input type="email" name="email" placeholder="Email">
                     <input type="text" name="supportedInstitution" placeholder="Instituição de Apoio">
                     <button type="submit" class="btn">Atualizar</button>
                 </form>
