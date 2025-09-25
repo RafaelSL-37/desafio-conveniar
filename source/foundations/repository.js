@@ -16,6 +16,7 @@ export class FoundationsRepository {
         this.pool = new Pool(poolConfig);
     }
 
+    //TODO: PAGINATION
     async find() {
         const client = await this.pool.connect();
 
@@ -30,6 +31,7 @@ export class FoundationsRepository {
         }
     }
 
+    //TODO: PAGINATION
     async findWithDeleted() {
         const client = await this.pool.connect();
 
@@ -86,7 +88,8 @@ export class FoundationsRepository {
         }
     }
 
-    async update({ cnpj, name, email, phone, supportedInstitution }) { //TODO: UPDATE ONLY WHOEVER IS PRESENT
+    //TODO: UPDATE ONLY WHOEVER IS PRESENT
+    async update({ cnpj, name, email, phone, supportedInstitution }) {
         const client = await this.pool.connect();
 
         try {

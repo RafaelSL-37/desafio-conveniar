@@ -38,13 +38,3 @@ const server = http.createServer(async (req, res) => {
 server.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
 });
-
-//REQUISITES
-//TODO: UPDATE ONLY WHOEVER IS PRESENT
-//TODO: PAGINATION
-//TODO: <FRONT> FIELD VALIDATIONS
-
-//IMPROVEMENTS
-//REFACTOR TO USE ORM
-//SWAGGER-LIKE DOCUMENTATION
-//AUTHENTICATION

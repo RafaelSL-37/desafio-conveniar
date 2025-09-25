@@ -49,6 +49,13 @@ Abra o arquivo `index.html` que está dentro da pasta `frontend` no seu navegado
 ##### Extra - Como rodar a aplicação de testes unitários
 Utilize o comando ` node source/foundations/tests/service.test.js `
 
+## Melhoria Possíveis
+
+• Usar um ORM (Object Relational Mapping ou Mapeamento Objeto-Relacional) para operações no banco de dados, fazendo com que essas fiquem mais seguras e padronizadas;  
+• Usar alguma forma de autenticação para melhorar a segurança dos dados;  
+• Criar ou utilizar alguma forma de geração automática de documentação para acompanhar os contratos de endpoints adicionados.  
+
+
 -------------------------------------------------------------------------------------------------------------------------------
 
 <sup><sub>(en-US)</sub></sup>
@@ -101,3 +108,9 @@ Just open the `index.html` file inside the `frontend` folder on your web browser
 
 ##### Extra - How to run the unit test application
 Run ` node source/foundations/tests/service.test.js `
+
+## Possible Improvements
+
+• Use an ORM (Object Relational Mapping) for database queries, making it more streamlined and more secure to manipulate data;  
+• Use some form of authentication method to improve security on data;  
+• Create or use some form of automated documentation generator library to keep track of added endpoint contracts.  
