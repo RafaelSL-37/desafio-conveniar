@@ -31,17 +31,17 @@ Foi construído um backend utilizando Node.js, utilizando um roteador que distri
 O frontend foi construído utilizando apenas html puro de acordo com as diretrizes propostas, sendo ele capaz de fazer requisições por meio das funções em javascript.
 
 ##### Banco de dados/Conteinerização
-Todo o trabalho foi conteinerizado para facilitar a instalação, o teste e utilização do sistema.
+Todo o trabalho foi conteinerizado utilizando Docker para facilitar a instalação, o teste e utilização do sistema.
 
 ## Como rodar
 ##### Passo 1 - Clonar o repositório
-``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
+Utilize o comando ``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
 
 ##### Passo 2 - Instalar o Docker
-``` https://docs.docker.com/get-docker/ ```
+Faça download do pacote no site ` https://docs.docker.com/get-docker/ `
 
 ##### Passo 3 - Construir o docker
-``` docker-compose up --build ```
+Utilize o comando ``` docker-compose up --build ```
 
 ##### Passo 4 - Abrir a aplicação
 Abra o arquivo `index.html` que está dentro da pasta `frontend` no seu navegador.
@@ -76,21 +76,23 @@ The model used is presented in the image below:
 ![alt text](assets/documentation/model.png)
 
 ##### Backend
+The backend was built with Node.js, utilizing a router that distributes calls to the appropriate controllers (considering scalability for other services), which then call the services where the business rules are embedded. The services, in turn, query the database through the repositories where the queries are saved.
 
 ##### Frontend
+The frontend was built using only pure HTML according to the proposed guidelines, and is capable of making requests through JavaScript functions.
 
 ##### Database/Containerization
-
+The whole system was containerized using Docker to facilitate installation, testing and use of the system.
 
 ## How to run
 ##### Step 1 - Clone Repository
-``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
+Run ``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
 
 ##### Step 2 - Install Docker
-``` https://docs.docker.com/get-docker/ ```
+Get the package on the website ` https://docs.docker.com/get-docker/ `
 
 ##### Step 3 - Build Docker
-``` docker-compose up --build ```
+Run ``` docker-compose up --build ```
 
 ##### Step 4 - Run the application
 Just open the `index.html` file inside the `frontend` folder on your web browser.
