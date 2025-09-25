@@ -53,7 +53,8 @@ Utilize o comando ` node source/foundations/tests/service.test.js `
 
 • Usar um ORM (Object Relational Mapping ou Mapeamento Objeto-Relacional) para operações no banco de dados, fazendo com que essas fiquem mais seguras e padronizadas;  
 • Usar alguma forma de autenticação para melhorar a segurança dos dados;  
-• Criar ou utilizar alguma forma de geração automática de documentação para acompanhar os contratos de endpoints adicionados.  
+• Criar ou utilizar alguma forma de geração automática de documentação para acompanhar os contratos de endpoints adicionados;  
+• Implementar paginação na tabela que apresenta a lista de fundações no banco de dados.  
 
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -113,4 +114,5 @@ Run ` node source/foundations/tests/service.test.js `
 
 • Use an ORM (Object Relational Mapping) for database queries, making it more streamlined and more secure to manipulate data;  
 • Use some form of authentication method to improve security on data;  
-• Create or use some form of automated documentation generator library to keep track of added endpoint contracts.  
+• Create or use some form of automated documentation generator library to keep track of added endpoint contracts;  
+• Implement pagination on the table that presents the list of foundations on database.  

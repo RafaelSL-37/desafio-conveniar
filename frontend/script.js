@@ -41,14 +41,14 @@ function buildSingleFoundationTable(foundation) {
             <tr>
                 <td>${foundation.id}</td>
                 <td>${foundation.name}</td>
-                <td>${foundation.cnpj}</td>
-                <td>${foundation.phone}</td>
+                <td>${cnpjMask(foundation.cnpj)}</td>
+                <td>${phoneMask(foundation.phone)}</td>
                 <td>${foundation.email}</td>
                 <td>${foundation.supported_institution}</td>
                 <td><button class="btn" onclick="deleteSearchedFoundationById(${foundation.id})">Excluir</button></td>
             </tr>
         </tbody>
-    </table>`; //TODO: MASK FOR PHONE AND CNPJ
+    </table>`;
 }
 
 function fillTable(foundations) {
@@ -57,12 +57,12 @@ function fillTable(foundations) {
 
   if (foundations) {
       foundations.forEach(foundation => {
-        const tr = document.createElement("tr"); //TODO: MASK FOR PHONE AND CNPJ
+        const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${foundation.id}</td>
           <td>${foundation.name}</td>
-          <td>${foundation.cnpj}</td>
-          <td>${foundation.phone}</td> 
+          <td>${cnpjMask(foundation.cnpj)}</td>
+          <td>${phoneMask(foundation.phone)}</td> 
           <td>${foundation.email}</td>
           <td>${foundation.supported_institution}</td>
           <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
@@ -85,9 +85,8 @@ function updateCnpjDropdown(foundations) {
     });
 }
 
-function phoneMask(event) {
-    let input = event.target;
-    let value = input.value.replace(/\D/g, '');
+function phoneMask(input) {
+    let value = input.replace(/\D/g, '');
 
     if (value.length > 10) {
         value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
@@ -95,21 +94,30 @@ function phoneMask(event) {
         value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
     }
 
-    input.value = value;
+    return value;
 }
 
-function cnpjMask(event) {
-    let input = event.target;
-    let value = input.value.replace(/\D/g, '');
+function cnpjMask(input) {
+    let value = input.replace(/\D/g, '');
 
     value = value.replace(/^(\d{2})(\d)/, '$1.$2');
     value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
     value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
     value = value.replace(/(\d{4})(\d)/, '$1-$2');
 
-    input.value = value.slice(0, 18);
+    return value.slice(0, 18);
 }
 
+
+function cnpjOnChangeHandler(event) {
+    const input = event.target;
+    input.value = cnpjMask(input.value)
+}
+
+function phoneOnChangeHandler(event) {
+    const input = event.target;
+    input.value = phoneMask(input.value);
+}
 
 document.getElementById("createForm").addEventListener("submit", async e => {
     e.preventDefault();
@@ -164,7 +172,9 @@ document.getElementById("updateForm").addEventListener("submit", async e => {
 
 async function fetchByCnpj() {
     const searchValue = document.getElementById("searchInput").value;
-    const response = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(searchValue)}`);
+    const cleanedValue = removeSpecialCaracters(searchValue);
+    
+    const response = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(cleanedValue)}`);
     const foundation = await response.json();
 
     if (!response.ok || !foundation || foundation.length === 0) {
