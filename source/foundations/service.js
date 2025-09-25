@@ -40,11 +40,11 @@ export class FoundationsService {
     }
   }
 
-  async deleteFoundations(id) {
+  async deleteFoundations(id, method='SOFT_DELETE') {
     const existingFoundation = await this.foundationsRepository.findByField('id', id);
 
     if (existingFoundation) {
-      return this.foundationsRepository.delete(id, 'SOFT_DELETE');
+      return this.foundationsRepository.delete(id, method);
     } else {
       return null;
     }

@@ -86,7 +86,7 @@ export class FoundationsRepository {
         }
     }
 
-    async update({ cnpj, name, email, phone, supportedInstitution }) {
+    async update({ cnpj, name, email, phone, supportedInstitution }) { //TODO: UPDATE ONLY WHOEVER IS PRESENT
         const client = await this.pool.connect();
 
         try {

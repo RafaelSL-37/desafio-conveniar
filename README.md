@@ -35,17 +35,19 @@ Todo o trabalho foi conteinerizado utilizando Docker para facilitar a instalaç�
 
 ## Como rodar
 ##### Passo 1 - Clonar o repositório
-Utilize o comando ``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
+Utilize o comando ` git clone git@github.com:RafaelSL-37/desafio-conveniar.git `
 
 ##### Passo 2 - Instalar o Docker
 Faça download do pacote no site ` https://docs.docker.com/get-docker/ `
 
 ##### Passo 3 - Construir o docker
-Utilize o comando ``` docker-compose up --build ```
+Utilize o comando ` docker-compose up --build `
 
 ##### Passo 4 - Abrir a aplicação
 Abra o arquivo `index.html` que está dentro da pasta `frontend` no seu navegador.
 
+##### Extra - Como rodar a aplicação de testes unitários
+Utilize o comando ` node source/foundations/tests/service.test.js `
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -96,3 +98,6 @@ Run ``` docker-compose up --build ```
 
 ##### Step 4 - Run the application
 Just open the `index.html` file inside the `frontend` folder on your web browser.
+
+##### Extra - How to run the unit test application
+Run ` node source/foundations/tests/service.test.js `
