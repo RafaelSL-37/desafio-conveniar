@@ -14,19 +14,29 @@ function getJsonBody(req) {
 }
 
 const server = http.createServer(async (req, res) => {
-    const urlData = url.parse(req.url, true);
-    const method = req.method;
-    const body = await getJsonBody(req);
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-    const router = new Router();
-    const result = await router.route(urlData, method, body);
+  if (req.method === "OPTIONS") {
+    res.writeHead(204); 
+    res.end();
+    return;
+  }
 
-    res.writeHead(result.code)
-    res.end(JSON.stringify(result.content, null, 2));
+  const urlData = url.parse(req.url, true);
+  const method = req.method;
+  const body = await getJsonBody(req);
+
+  const router = new Router();
+  const result = await router.route(urlData, method, body);
+
+  res.writeHead(result.code)
+  res.end(JSON.stringify(result.content, null, 2));
 });
 
 server.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}/`);
+  console.log(`Server running at http://localhost:${port}/`);
 });
 
 //REQUISITES
