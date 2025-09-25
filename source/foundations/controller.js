@@ -7,8 +7,9 @@ export class FoundationsController {
 
     async handleRequest(method, params, body, path) {
         if (method === 'GET') {
+            const withDeleted = params.withDeleted || false;
             if (params.cnpj) {
-                const foundations = await this.foundationsService.getFoundations(params.cnpj);
+                const foundations = await this.foundationsService.getFoundations(params.cnpj, withDeleted);
 
                 if (!foundations) {
                     return { code: 404, content: 'Foundation with given CNPJ not found.' };
@@ -16,7 +17,7 @@ export class FoundationsController {
 
                 return { code: 200, content: foundations };
             } else {
-                const foundations = await this.foundationsService.getFoundations();
+                const foundations = await this.foundationsService.getFoundations(null, withDeleted);
     
                 if (!foundations) {
                     return { code: 404, content: 'No foundation was found.' };
@@ -26,7 +27,7 @@ export class FoundationsController {
             }
         }
 
-        if (method === 'POST' && path === '') {
+        if (method === 'POST') {
             const createdFoundation = await this.foundationsService.createFoundations(body)
 
             if (createdFoundation) {
@@ -36,7 +37,7 @@ export class FoundationsController {
             }
         }
         
-        if (method === 'PUT' && path === '') {
+        if (method === 'PUT') {
             const updatedFoundation = await this.foundationsService.updateFoundations(body)
 
             if (updatedFoundation) {
@@ -46,7 +47,7 @@ export class FoundationsController {
             }
         }
 
-        if (method === 'DELETE' && path === '/SOMETHING') {
+        if (method === 'DELETE') {
             if (!params.id) return { code: 400, content: 'No CNPJ was given for deletion.' };
 
             const deletedFoundation = this.foundationsService.deleteFoundations(params.id);

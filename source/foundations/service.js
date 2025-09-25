@@ -5,7 +5,14 @@ export class FoundationsService {
     this.foundationsRepository = new FoundationsRepository();
   }
 
-  async getFoundations(cnpj=null) {
+  async getFoundations(cnpj=null, withDeleted=false) {
+    if (withDeleted) {
+      const foundations = cnpj 
+        ? await this.foundationsRepository.findByFieldWithDeleted('cnpj', cnpj)
+        : await this.foundationsRepository.findWithDeleted();
+        
+      return foundations
+    }
     const foundations = cnpj 
       ? await this.foundationsRepository.findByField('cnpj', cnpj)
       : await this.foundationsRepository.find();
@@ -14,7 +21,7 @@ export class FoundationsService {
   }
 
   async createFoundations(body) {
-    const existingFoundation = await this.foundationsRepository.findByField('cnpj', body.cnpj);
+    const existingFoundation = await this.foundationsRepository.findByFieldWithDeleted('cnpj', body.cnpj);
 
     if (!existingFoundation) {
       return this.foundationsRepository.create(body);

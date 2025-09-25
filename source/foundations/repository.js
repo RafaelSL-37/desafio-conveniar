@@ -30,6 +30,20 @@ export class FoundationsRepository {
         }
     }
 
+    async findWithDeleted() {
+        const client = await this.pool.connect();
+
+        try {
+            const query = 'SELECT * FROM foundations';
+
+            const { rows } = await client.query(query, []);
+
+            return rows.length ? rows : null;
+        } finally {
+            client.release();
+        }
+    }
+
     async findByField(fieldName, fieldValue) {
         const client = await this.pool.connect();
 
@@ -44,11 +58,25 @@ export class FoundationsRepository {
         }
     }
 
+    async findByFieldWithDeleted(fieldName, fieldValue) {
+        const client = await this.pool.connect();
+
+        try {
+            const query = `SELECT * FROM foundations WHERE ${fieldName} = $1`;
+
+            const { rows } = await client.query(query, [fieldValue]);
+
+            return rows.length ? rows : null;
+        } finally {
+            client.release();
+        }
+    }
+
     async create({ cnpj, name, email, phone, supportedInstitution }) {
         const client = await this.pool.connect();
 
         try {
-            const query = `INSERT INTO foundations(name, cnpj, email, phone, institution) VALUES($1,$2,$3,$4,$5) RETURNING *`;
+            const query = `INSERT INTO foundations(name, cnpj, email, phone, supported_institution) VALUES($1, $2, $3, $4, $5) RETURNING *`;
 
             const { rows } = await client.query(query, [name, cnpj, email, phone, supportedInstitution]);
 
@@ -62,7 +90,7 @@ export class FoundationsRepository {
         const client = await this.pool.connect();
 
         try {
-            const query = `UPDATE foundations SET name = $1, email = $2, phone = $3, supportedInstitution = $4, updated_at = NOW() WHERE cnpj = $5 RETURNING *`;
+            const query = `UPDATE foundations SET name = $1, email = $2, phone = $3, supported_institution = $4, updated_at = NOW() WHERE cnpj = $5 RETURNING *`;
 
             const { rows } = await client.query(query, [name, email, phone, supportedInstitution, cnpj]);
 
