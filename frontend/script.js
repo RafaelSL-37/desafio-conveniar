@@ -40,11 +40,11 @@ function getSingleFoundationTable(foundation) {
                 <td>${foundation.cnpj}</td>
                 <td>${foundation.phone}</td>
                 <td>${foundation.email}</td>
-                <td>${foundation.supportedInstitution}</td>
+                <td>${foundation.supported_institution}</td>
                 <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
             </tr>
         </tbody>
-    </table>`;
+    </table>`; //TODO: MASK FOR PHONE AND CNPJ
 }
 
 function fillTable(foundations) {
@@ -52,12 +52,12 @@ function fillTable(foundations) {
   tableBody.innerHTML = "";
 
   foundations.forEach(foundation => {
-    const tr = document.createElement("tr");
+    const tr = document.createElement("tr"); //TODO: MASK FOR PHONE AND CNPJ
     tr.innerHTML = `
       <td>${foundation.id}</td>
       <td>${foundation.name}</td>
       <td>${foundation.cnpj}</td>
-      <td>${foundation.phone}</td>
+      <td>${foundation.phone}</td> 
       <td>${foundation.email}</td>
       <td>${foundation.supported_institution}</td>
       <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
@@ -131,9 +131,7 @@ document.getElementById("updateForm").addEventListener("submit", async e => {
 async function fetchByCnpj() {
     const searchValue = document.getElementById("searchInput").value;
     const response = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(searchValue)}`);
-    console.log('response: ', response);
     const foundation = await response.json();
-    console.log('foundation: ', foundation);
 
     if (!response.ok || !foundation || foundation.length === 0) {
         setMessage('searchMessageHandler', "Não foi encontrada fundação para o CNPJ.");

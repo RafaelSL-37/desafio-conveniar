@@ -40,7 +40,7 @@ The model used is presented in the image below:
 ```docker-compose up --build```
 
 ##### Step 3 - Abrir a aplicação
-``` ```
+Abra o arquivo `index.html` que está dentro da pasta `frontend` no seu navegador.
 
 -------------------------------------------------------------------------------------------------------------------------------
 
@@ -85,5 +85,5 @@ The model used is presented in the image below:
 ##### Step 2 - Build Docker
 ```docker-compose up --build```
 
-##### Step 3 - Run XXXXXXXXX
-``` ```
+##### Step 3 - Run the application
+Just open the `index.html` file inside the `frontend` folder on your web browser.
