@@ -58,17 +58,11 @@ It should also be possible to search existing records using the CNPJ number. If 
 
 ##### Rules
 • The application backend must be written in Node.js, PHP, or C#;
-
 • The code must be written using the object-oriented programming paradigm;
-
 • You cannot use any framework;
-
 • You can use any third-party library you wish;
-
 • Create a minimally user-friendly and pleasant interface;
-
 • The form must have operations for registering, consulting, modifying, and deleting foundations;
-
 • The form must not allow the registration of more than one foundation with the same CNPJ (Brazilian Taxpayer Registry).
 
 
