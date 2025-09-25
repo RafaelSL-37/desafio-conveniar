@@ -61,7 +61,7 @@ form {
   border: 1px solid #ccc; 
 }
 
-form input { 
+form input, form select { 
   margin: 5px; 
   padding: 5px; 
   width: 100%;

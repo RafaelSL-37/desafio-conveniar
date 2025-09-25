@@ -27,15 +27,3 @@ services:
       - database
     ports:
       - "3000:3000"
-
-  # frontend:
-  #   # restart: on-failure
-  #   build:
-  #     context: ./frontend
-  #     dockerfile: Dockerfile
-  #   environment:
-  #     APP_PORT: 3001
-  #   depends_on:
-  #     - backend
-  #   ports:
-  #     - "3001:3001"

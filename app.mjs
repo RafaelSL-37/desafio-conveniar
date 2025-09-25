@@ -30,8 +30,6 @@ server.listen(port, () => {
 });
 
 //REQUISITES
-//TODO: <FRONT> Uma mensagem deverá ser exibida caso o cadastro seja efetuado com sucesso.
-//TODO: <FRONT> Caso o registro não seja encontrado, exibir a mensagem “Fundação não encontrada”.
 //TODO: TESTS ON EVERY FUNCTIONALITY
 
 //IMPROVEMENTS

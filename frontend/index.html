@@ -35,7 +35,7 @@
             </div>
 
             <div id="create" class="tab-content">
-                <h2>Criar nova entidade</h2>
+                <h2>Criar nova fundação</h2>
                 <form id="createForm">
                     <input type="text" name="name" placeholder="Nome" required>
                     <input type="text" name="cnpj" placeholder="CNPJ" required>
@@ -48,9 +48,11 @@
             </div>
 
             <div id="update" class="tab-content">
-                <h2>Atualizar entidade</h2>
+                <h2>Atualizar fundação</h2>
                 <form id="updateForm">
-                    <input type="text" name="cnpj" placeholder="CNPJ" required>
+                    <select name="cnpj" id="cnpjSelect">
+                        <option value="">Selecione um CNPJ</option>
+                    </select>
                     <input type="text" name="name" placeholder="Nome">
                     <input type="text" name="phone" placeholder="Telefone">
                     <input type="email" name="email" placeholder="Email">

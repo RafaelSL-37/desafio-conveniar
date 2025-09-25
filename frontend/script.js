@@ -5,6 +5,45 @@ function openTab(nome) {
   document.querySelectorAll(".tab-content").forEach(tab => tab.classList.remove("active"));
   document.querySelector(`.tab-btn[onclick="openTab('${nome}')"]`).classList.add("active");
   document.getElementById(nome).classList.add("active");
+
+  clearMessages();
+}
+
+function clearMessages() {
+    const createMessageBody = document.querySelector("#createMessageHandler"); //TODO: MAKE FUNCTION THAT SETS MESSAGES AS NEEDED
+    const updateMessageBody = document.querySelector("#updateMessageHandler");
+    const searchMessageBody = document.querySelector("#searchMessageHandler");
+
+    createMessageBody.innerHTML = "";
+    updateMessageBody.innerHTML = "";
+    searchMessageBody.innerHTML = "";
+}
+
+function getSingleFoundationTable(foundation) {
+    return `<table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>CNPJ</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Instituição de Apoio</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${foundation.id}</td>
+                <td>${foundation.nome}</td>
+                <td>${foundation.cnpj}</td>
+                <td>${foundation.telefone}</td>
+                <td>${foundation.email}</td>
+                <td>${foundation.instituicao}</td>
+                <td><button class="btn" onclick="deleteFoundationById(${foundation.id})">Excluir</button></td>
+            </tr>
+        </tbody>
+    </table>`;
 }
 
 function fillTable(foundations) {
@@ -25,19 +64,37 @@ function fillTable(foundations) {
   });
 }
 
+function updateCnpjDropdown(foundations) {
+    const select = document.getElementById("cnpjSelect");
+    select.innerHTML = '<option value="">Selecione um CNPJ</option>';
+    foundations.forEach(foundation => {
+        const option = document.createElement("option");
+        option.value = foundation.cnpj;
+        option.textContent = `${foundation.cnpj} - ${foundation.name}`;
+        select.appendChild(option);
+    });
+}
+
+
 document.getElementById("createForm").addEventListener("submit", async e => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const body = Object.fromEntries(formData);
-    await fetch(`${API_URL}/foundations`, {
+
+    const response = await fetch(`${API_URL}/foundations`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     });
     e.target.reset();
-    fetchFoundations();
+    fetchFoundations(); //TODO: CHECK IF AWAIT IS NEEDED
+
     const createMessageBody = document.querySelector("#createMessageHandler");
-    createMessageBody.innerHTML = "CLICK"; //TODO: ADD RETURN MESSAGE HERE
+    if (!response) {
+        createMessageBody.innerHTML = "Não foi possível criar a fundação.";
+    } else {
+        createMessageBody.innerHTML = `Fundação ${response.name} criada com sucesso!`;
+    }
 });
 
 document.getElementById("updateForm").addEventListener("submit", async e => {
@@ -46,30 +103,42 @@ document.getElementById("updateForm").addEventListener("submit", async e => {
     const body = Object.fromEntries(formData);
     const id = body.id;
     delete body.id;
-    await fetch(`${API_URL}/foundations/${id}`, {
+
+    const response = await fetch(`${API_URL}/foundations/${id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
     });
     e.target.reset();
-    fetchFoundations();
+    fetchFoundations(); //TODO: CHECK IF AWAIT IS NEEDED
+
     const updateMessageBody = document.querySelector("#updateMessageHandler");
-    updateMessageBody.innerHTML = "CLICK"; //TODO: ADD RETURN MESSAGE HERE
+    if (!response) {
+        updateMessageBody.innerHTML = "Não foi possível atualizar a fundação.";
+    } else {
+        updateMessageBody.innerHTML = `Fundação ${response.name} atualizada com sucesso!`;
+    }
 });
 
 
 async function fetchByCnpj() {
-    const valor = document.getElementById("searchInput").value;
-    const res = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(valor)}`);
-    const data = await res.json();
+    const searchValue = document.getElementById("searchInput").value;
+    const response = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(searchValue)}`);
+    const foundation = await response.json(); //TODO: CHECK IF THIS IS NEEDED
+
     const searchMessageBody = document.querySelector("#searchMessageHandler");
-    searchMessageBody.innerHTML = data; //TODO: ADD RETURN MESSAGE HERE
+    if (!foundation) {
+        searchMessageBody.innerHTML = "Não foi encontrada fundação para o CNPJ.";
+    } else {
+        searchMessageBody.innerHTML = getSingleFoundationTable(foundation);
+    }
 }
 
 async function fetchFoundations() {
-  const res = await fetch(`${API_URL}/foundations`);
-  const data = await res.json();
-  fillTable(data);
+  const response = await fetch(`${API_URL}/foundations`);
+  const foundations = await response.json();
+  fillTable(foundations);
+  updateCnpjDropdown(foundations)
 }
 
 async function deleteFoundationById(id) {
