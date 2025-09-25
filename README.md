@@ -1,5 +1,5 @@
-(pt-BR)
-# Desafio Backend -  Conveniar
+<sup><sub>(pt-BR)</sub></sup>
+# Desafio Backend
 Backend desenvolvido para cumprir com o desafio de desenvolvimento proposto. 
 
 ## Introdução
@@ -21,31 +21,36 @@ Deve também ser possível pesquisar os registros existentes através do número
 
 
 ## Solução Proposta
-<INTRODUCTION GOES HERE>
-The model used is presented in the image below:
-<!-- ![alt text](assets/documentation/model.png) <UPDATE THIS IMAGE WITH NEWER REFERENCES> -->
+O modelo construído está apresentado na imagem abaixo:
+![alt text](assets/documentation/model.png)
 
 ##### Backend
+Foi construído um backend utilizando Node.js, utilizando um roteador que distribui as chamadas para os devidos controladores (considerando escalabilidade para outros serviços), os quais chamam os serviços onde as regras de negócio estão inseridas. Os serviços, por sua vez, fazem as consultas ao banco de dados por meio dos repositórios, onde as queries estão salvas.
 
 ##### Frontend
+O frontend foi construído utilizando apenas html puro de acordo com as diretrizes propostas, sendo ele capaz de fazer requisições por meio das funções em javascript.
 
-##### Database/Containerization
+##### Banco de dados/Conteinerização
+Todo o trabalho foi conteinerizado para facilitar a instalação, o teste e utilização do sistema.
 
+## Como rodar
+##### Passo 1 - Clonar o repositório
+``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
 
-## How to run
-##### Step 1 - Clonar o repositório
-```git clone git@github.com:RafaelSL-37/desafio-conveniar.git```
+##### Passo 2 - Instalar o Docker
+``` https://docs.docker.com/get-docker/ ```
 
-##### Step 2 - Construir o docker
-```docker-compose up --build```
+##### Passo 3 - Construir o docker
+``` docker-compose up --build ```
 
-##### Step 3 - Abrir a aplicação
+##### Passo 4 - Abrir a aplicação
 Abra o arquivo `index.html` que está dentro da pasta `frontend` no seu navegador.
+
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-(en-US)
-# Backend Challenge -  Conveniar
+<sup><sub>(en-US)</sub></sup>
+# Backend Challenge
 Backend developed to fullfil the challenge proposed of building a system without using frameworks.
 
 ## Introduction
@@ -67,9 +72,8 @@ It should also be possible to search existing records using the CNPJ number. If 
 
 
 ## Proposed Solution
-<INTRODUCTION GOES HERE>
 The model used is presented in the image below:
-<!-- ![alt text](assets/documentation/model.png) <UPDATE THIS IMAGE WITH NEWER REFERENCES> -->
+![alt text](assets/documentation/model.png)
 
 ##### Backend
 
@@ -80,10 +84,13 @@ The model used is presented in the image below:
 
 ## How to run
 ##### Step 1 - Clone Repository
-```git clone git@github.com:RafaelSL-37/desafio-conveniar.git```
+``` git clone git@github.com:RafaelSL-37/desafio-conveniar.git ```
 
-##### Step 2 - Build Docker
-```docker-compose up --build```
+##### Step 2 - Install Docker
+``` https://docs.docker.com/get-docker/ ```
 
-##### Step 3 - Run the application
+##### Step 3 - Build Docker
+``` docker-compose up --build ```
+
+##### Step 4 - Run the application
 Just open the `index.html` file inside the `frontend` folder on your web browser.
