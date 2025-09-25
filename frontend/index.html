@@ -1,13 +1,84 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gestão de Entidades</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h1>Gestão de Entidades</h1>
+
+        <!-- Menu de abas -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openTab('table')">Fundações</button>
+            <button class="tab-btn" onclick="openTab('create')">Criar</button>
+            <button class="tab-btn" onclick="openTab('update')">Atualizar</button>
+            <button class="tab-btn" onclick="openTab('fetchByCnpj')">Buscar</button>
+        </div>
+
+        <div class="container">
+
+            <div id="table" class="tab-content active">
+                <table id="entityTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
+                            <th>Instituição de Apoio</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <div id="create" class="tab-content">
+                <h2>Criar nova entidade</h2>
+                <form id="createForm">
+                    <input type="text" name="name" placeholder="Nome" required>
+                    <input type="text" name="cnpj" placeholder="CNPJ" required>
+                    <input type="text" name="phone" placeholder="Telefone" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <input type="text" name="institution" placeholder="Instituição de Apoio" required>
+                    <button type="submit" class="btn">Criar</button>
+                </form>
+                <!-- INSERIR AQUI O RESULTADO -->
+                <div id="createMessageHandler">createMessageHandler</div>
+            </div>
+
+            <div id="update" class="tab-content">
+                <h2>Atualizar entidade</h2>
+                <form id="updateForm">
+                    <input type="text" name="cnpj" placeholder="CNPJ" required>
+                    <input type="text" name="name" placeholder="Nome">
+                    <input type="text" name="phone" placeholder="Telefone">
+                    <input type="email" name="email" placeholder="Email">
+                    <input type="text" name="institution" placeholder="Instituição de Apoio">
+                    <button type="submit" class="btn">Atualizar</button>
+                </form>
+                <!-- INSERIR AQUI O RESULTADO -->
+                <div id="updateMessageHandler">updateMessageHandler</div>
+            </div>
+
+            <div id="fetchByCnpj" class="tab-content">
+                <div class="centralizer">
+                    <div class="searchContainer">
+                        <h2>Buscar entidade</h2>
+                        <div>
+                            <input type="text" id="searchInput" placeholder="Buscar por CNPJ..." />
+                            <button class="btn" onclick="fetchByCnpj()">Buscar</button>
+                        </div>
+                        <!-- INSERIR AQUI O RESULTADO DA BUSCA -->
+                        <div id="searchMessageHandler">searchMessageHandler</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <script src="script.js"></script>
+    </body>
 </html>

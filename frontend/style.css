@@ -1,0 +1,86 @@
+body { 
+  font-family: Arial, sans-serif; 
+  margin: 20px; 
+  text-align: center;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.tabs { 
+  display: flex; 
+  border-bottom: 2px solid #ccc; 
+  margin-bottom: 10px; 
+  justify-content: center;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  cursor: pointer;
+  border: none;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-weight: bold;
+}
+
+.tab-btn.active { 
+  border-bottom: 2px solid #007bff; 
+  color: #007bff; 
+}
+
+.tab-content { 
+  display: none; 
+}
+
+.tab-content.active { 
+  display: block; 
+}
+
+table { 
+  border-collapse: collapse; 
+  width: 100%; 
+  margin-top: 20px; 
+}
+
+th, td { 
+  border: 1px solid #ccc; 
+  padding: 8px; 
+  text-align: left; 
+}
+
+th { 
+  background-color: #f2f2f2; 
+}
+
+form { 
+  margin-top: 20px; 
+  padding: 10px; 
+  border: 1px solid #ccc; 
+}
+
+form input { 
+  margin: 5px; 
+  padding: 5px; 
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.btn { 
+  cursor: pointer; 
+  padding: 5px 10px; 
+  margin-top: 10px;
+}
+
+.searchContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.centralizer {
+    display: flex;
+    flex-direction: row;
+    justify-content:  center;
+}

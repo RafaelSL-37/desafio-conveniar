@@ -30,20 +30,15 @@ server.listen(port, () => {
 });
 
 //REQUISITES
-//TODO: DATABASE CONNECTION
-//TODO: <FRONT> CREATE FORM
-//TODO: <FRONT> LIST
-//TODO: <FRONT> UPDATE FORM
-//TODO: <FRONT> DELETE ON LIST
+//TODO: <FRONT> Uma mensagem deverá ser exibida caso o cadastro seja efetuado com sucesso.
+//TODO: <FRONT> Caso o registro não seja encontrado, exibir a mensagem “Fundação não encontrada”.
 //TODO: TESTS ON EVERY FUNCTIONALITY
 
 //IMPROVEMENTS
-//TODO: README (PT/EN)
-//TODO: CHANGE DELETE TO SOFT DELETE
-//TODO: FIELD VALIDATIONS
+//TODO: <FRONT> FIELD VALIDATIONS
 //TODO: REFACTOR TO USE ORM
 //TODO: SWAGGER-LIKE DOCUMENTATION
-//TODO: JWT
+//TODO: AUTHENTICATION
 
 //AT THE END
 //PIP FREEZE
