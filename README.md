@@ -11,13 +11,13 @@ Crie um formulário para cadastro destas Fundações de Apoio. O formulário dev
 Deve também ser possível pesquisar os registros existentes através do número do CNPJ. Caso a pesquisa encontre resultados, os dados da fundação deverão ser exibidos. Caso o registro não seja encontrado, exibir a mensagem “Fundação não encontrada”.
 
 ##### Regras
-• O backend da aplicação deve ser escrito em Node.js, PHP ou C#;
-• O código deve ser escrito com o paradigma da programação orientada a objetos;
-• Você não pode utilizar nenhum framework;
-• Você pode usar qualquer outra biblioteca de terceiros que desejar;
-• Crie uma interface minimamente amigável e agradável;
-• O formulário deverá ter as operações de cadastro, consulta, alteração e exclusão de fundações;
-• O formulário não deve permitir o cadastro de mais de uma fundação com o mesmo CNPJ.
+• O backend da aplicação deve ser escrito em Node.js, PHP ou C#;  
+• O código deve ser escrito com o paradigma da programação orientada a objetos;  
+• Você não pode utilizar nenhum framework;  
+• Você pode usar qualquer outra biblioteca de terceiros que desejar;  
+• Crie uma interface minimamente amigável e agradável;  
+• O formulário deverá ter as operações de cadastro, consulta, alteração e exclusão de fundações;  
+• O formulário não deve permitir o cadastro de mais de uma fundação com o mesmo CNPJ.  
 
 
 ## Solução Proposta
@@ -57,12 +57,12 @@ Create a form to register these Support Foundations. The form should contain fie
 It should also be possible to search existing records using the CNPJ number. If the search results are found, the foundation's data should be displayed. If the record is not found, the message "Foundation not found" should be displayed.
 
 ##### Rules
-• The application backend must be written in Node.js, PHP, or C#;
-• The code must be written using the object-oriented programming paradigm;
-• You cannot use any framework;
-• You can use any third-party library you wish;
-• Create a minimally user-friendly and pleasant interface;
-• The form must have operations for registering, consulting, modifying, and deleting foundations;
+• The application backend must be written in Node.js, PHP, or C#;  
+• The code must be written using the object-oriented programming paradigm;  
+• You cannot use any framework;  
+• You can use any third-party library you wish;  
+• Create a minimally user-friendly and pleasant interface;  
+• The form must have operations for registering, consulting, modifying, and deleting foundations;  
 • The form must not allow the registration of more than one foundation with the same CNPJ (Brazilian Taxpayer Registry).
 
 
