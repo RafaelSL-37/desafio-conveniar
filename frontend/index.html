@@ -8,7 +8,6 @@
     <body>
         <h1>Gestão de Entidades</h1>
 
-        <!-- Menu de abas -->
         <div class="tabs">
             <button class="tab-btn active" onclick="openTab('table')">Fundações</button>
             <button class="tab-btn" onclick="openTab('create')">Criar</button>
@@ -45,8 +44,7 @@
                     <input type="text" name="institution" placeholder="Instituição de Apoio" required>
                     <button type="submit" class="btn">Criar</button>
                 </form>
-                <!-- INSERIR AQUI O RESULTADO -->
-                <div id="createMessageHandler">createMessageHandler</div>
+                <div id="createMessageHandler" class="messageHandler"></div>
             </div>
 
             <div id="update" class="tab-content">
@@ -59,8 +57,7 @@
                     <input type="text" name="institution" placeholder="Instituição de Apoio">
                     <button type="submit" class="btn">Atualizar</button>
                 </form>
-                <!-- INSERIR AQUI O RESULTADO -->
-                <div id="updateMessageHandler">updateMessageHandler</div>
+                <div id="updateMessageHandler" class="messageHandler"></div>
             </div>
 
             <div id="fetchByCnpj" class="tab-content">
@@ -71,8 +68,7 @@
                             <input type="text" id="searchInput" placeholder="Buscar por CNPJ..." />
                             <button class="btn" onclick="fetchByCnpj()">Buscar</button>
                         </div>
-                        <!-- INSERIR AQUI O RESULTADO DA BUSCA -->
-                        <div id="searchMessageHandler">searchMessageHandler</div>
+                        <div id="searchMessageHandler" class="messageHandler"></div>
                     </div>
                 </div>
             </div>

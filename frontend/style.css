@@ -84,3 +84,7 @@ form input {
     flex-direction: row;
     justify-content:  center;
 }
+
+.messageHandler {
+    margin-top: 20px
+}

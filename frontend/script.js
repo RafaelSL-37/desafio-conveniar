@@ -26,41 +26,44 @@ function fillTable(foundations) {
 }
 
 document.getElementById("createForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const body = Object.fromEntries(formData);
-  await fetch(`${API_URL}/foundations`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  e.target.reset();
-  fetchFoundations();
-//   openTab("table"); //TODO: MAKE IT FILL SPACE BELOW
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const body = Object.fromEntries(formData);
+    await fetch(`${API_URL}/foundations`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    e.target.reset();
+    fetchFoundations();
+    const createMessageBody = document.querySelector("#createMessageHandler");
+    createMessageBody.innerHTML = "CLICK"; //TODO: ADD RETURN MESSAGE HERE
 });
 
 document.getElementById("updateForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const body = Object.fromEntries(formData);
-  const id = body.id;
-  delete body.id;
-  await fetch(`${API_URL}/foundations/${id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body)
-  });
-  e.target.reset();
-  fetchFoundations();
-//   openTab("table"); //TODO: MAKE IT FILL SPACE BELOW
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const body = Object.fromEntries(formData);
+    const id = body.id;
+    delete body.id;
+    await fetch(`${API_URL}/foundations/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+    });
+    e.target.reset();
+    fetchFoundations();
+    const updateMessageBody = document.querySelector("#updateMessageHandler");
+    updateMessageBody.innerHTML = "CLICK"; //TODO: ADD RETURN MESSAGE HERE
 });
 
 
 async function fetchByCnpj() {
-  const valor = document.getElementById("searchInput").value;
-  const res = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(valor)}`);
-  const data = await res.json();
-//   fillTable(data); //TODO: MAKE IT FILL SPACE BELOW
+    const valor = document.getElementById("searchInput").value;
+    const res = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(valor)}`);
+    const data = await res.json();
+    const searchMessageBody = document.querySelector("#searchMessageHandler");
+    searchMessageBody.innerHTML = data; //TODO: ADD RETURN MESSAGE HERE
 }
 
 async function fetchFoundations() {
