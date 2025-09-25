@@ -9,14 +9,15 @@ function openTab(nome) {
   clearMessages();
 }
 
-function clearMessages() {
-    const createMessageBody = document.querySelector("#createMessageHandler"); //TODO: MAKE FUNCTION THAT SETS MESSAGES AS NEEDED
-    const updateMessageBody = document.querySelector("#updateMessageHandler");
-    const searchMessageBody = document.querySelector("#searchMessageHandler");
+function setMessage(componentId, message) {
+    const component = document.querySelector(`#${componentId}`);
+    component.innerHTML = message;
+}
 
-    createMessageBody.innerHTML = "";
-    updateMessageBody.innerHTML = "";
-    searchMessageBody.innerHTML = "";
+function clearMessages() {
+    setMessage('createMessageHandler', '');
+    setMessage('updateMessageHandler', '');
+    setMessage('searchMessageHandler', '');
 }
 
 function getSingleFoundationTable(foundation) {
@@ -89,11 +90,10 @@ document.getElementById("createForm").addEventListener("submit", async e => {
     e.target.reset();
     fetchFoundations(); //TODO: CHECK IF AWAIT IS NEEDED
 
-    const createMessageBody = document.querySelector("#createMessageHandler");
     if (!response) {
-        createMessageBody.innerHTML = "Não foi possível criar a fundação.";
+        setMessage('createMessageHandler', 'Não foi possível criar a fundação.');
     } else {
-        createMessageBody.innerHTML = `Fundação ${response.name} criada com sucesso!`;
+        setMessage('createMessageHandler', `Fundação ${response.name} criada com sucesso!`);
     }
 });
 
@@ -112,11 +112,10 @@ document.getElementById("updateForm").addEventListener("submit", async e => {
     e.target.reset();
     fetchFoundations(); //TODO: CHECK IF AWAIT IS NEEDED
 
-    const updateMessageBody = document.querySelector("#updateMessageHandler");
     if (!response) {
-        updateMessageBody.innerHTML = "Não foi possível atualizar a fundação.";
+        setMessage('updateMessageHandler', "Não foi possível atualizar a fundação.");
     } else {
-        updateMessageBody.innerHTML = `Fundação ${response.name} atualizada com sucesso!`;
+        setMessage('updateMessageHandler', `Fundação ${response.name} atualizada com sucesso!`);
     }
 });
 
@@ -126,11 +125,10 @@ async function fetchByCnpj() {
     const response = await fetch(`${API_URL}/foundations?cnpj=${encodeURIComponent(searchValue)}`);
     const foundation = await response.json(); //TODO: CHECK IF THIS IS NEEDED
 
-    const searchMessageBody = document.querySelector("#searchMessageHandler");
     if (!foundation) {
-        searchMessageBody.innerHTML = "Não foi encontrada fundação para o CNPJ.";
+        setMessage('searchMessageHandler', "Não foi encontrada fundação para o CNPJ.");
     } else {
-        searchMessageBody.innerHTML = getSingleFoundationTable(foundation);
+        setMessage('searchMessageHandler', getSingleFoundationTable(foundation));
     }
 }
 
